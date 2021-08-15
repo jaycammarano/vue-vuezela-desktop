@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to the TypeScript Music Player" />
+    <img class="m-auto" alt="Vue logo" src="../assets/logo.png" />
+    <HelloWorld msg="Welcome to VueVuezela Task App" />
   </div>
 </template>
 
