@@ -1,6 +1,10 @@
 <template>
   <Header msg="Welcome to VueVuezela Task App" />
-  <TaskListContainer @delete-task="deleteTask" :tasks="tasks" />
+  <TaskListContainer
+    @remind-toggle="remindToggle"
+    @delete-task="deleteTask"
+    :tasks="tasks"
+  />
 </template>
 
 <script lang="ts">
@@ -20,8 +24,14 @@ export default defineComponent({
         this.tasks = this.tasks.filter((task) => task.id !== id);
       }
     },
-    onRemind(id: number) {
-      this.tasks = this.tasks.filter((task) => task.id !== id);
+    remindToggle(id: number) {
+      this.tasks = this.tasks.map((task) => {
+        if (task.id === id) {
+          task.reminder = !task.reminder;
+          console.log(task.reminder);
+        }
+        return task;
+      });
     },
   },
   data() {

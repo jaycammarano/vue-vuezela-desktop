@@ -19,7 +19,7 @@
     </div>
 
     <div class="absolute right-10">
-      <i @click="onRemind(taskContent.id)" class="fas fa-bell"></i>
+      <i @click="remindToggle(taskContent.id)" class="fas fa-bell"></i>
       <i @click="onDelete(taskContent.id)" class="m-2 fas fa-times"></i>
     </div>
   </div>
@@ -34,7 +34,7 @@ export default defineComponent({
     taskContent: Object,
   },
   methods: {
-    onRemind(id: number) {
+    remindToggle(id: number) {
       this.$emit("remind-toggle", id);
     },
     onDelete(id: number) {
