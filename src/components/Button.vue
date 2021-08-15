@@ -1,10 +1,9 @@
 <template>
   <button
-    @click="onClick()"
+    @click="showFormToggle()"
     class="
       p-2
       font-bold
-      text-right
       border-2 border-green-500
       rounded
       hover:bg-green-500 hover:text-black
@@ -12,19 +11,36 @@
   >
     Add Task
   </button>
+  <div>
+    <AddTask v-bind:showForm="this.showForm" :taskNumber="taskNumber" />
+  </div>
 </template>
 
 <script lang="ts">
-import { TTask } from "@/utils/types";
-export default {
+import { defineComponent } from "@vue/runtime-core";
+import AddTask from "./AddTask.vue";
+
+export default defineComponent({
   name: "AddTaskButton",
   props: {
     title: String,
+    taskNumber: Number,
+  },
+  components: { AddTask },
+  data() {
+    return {
+      showForm: true,
+    };
   },
   methods: {
-    onClick(): TTask {
-      return { id: 0, text: "hellotask", day: "june 3rd", reminder: true };
+    showFormToggle(): void {
+      if (this.showForm === true) {
+        this.showForm = false;
+      } else {
+        this.showForm = true;
+      }
+      console.log(this.showForm);
     },
   },
-};
+});
 </script>
