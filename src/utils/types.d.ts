@@ -3,6 +3,7 @@ export type TTask = {
   text: string;
   day: string;
   reminder: boolean;
+  complete: boolean;
 };
 
 export interface ITask {

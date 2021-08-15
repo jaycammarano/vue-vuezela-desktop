@@ -20,6 +20,7 @@
 
     <div class="absolute right-10">
       <i @click="remindToggle(taskContent.id)" :class="bellColor"></i>
+      <i @click="onComplete(taskContent.id)" :class="checkColor"></i>
       <i @click="onDelete(taskContent.id)" class="m-2 fas fa-times"></i>
     </div>
   </div>
@@ -34,6 +35,9 @@ export default defineComponent({
     taskContent: Object,
   },
   methods: {
+    onComplete(id: number) {
+      this.$emit("on-complete", id);
+    },
     remindToggle(id: number) {
       this.$emit("remind-toggle", id);
     },
@@ -41,13 +45,19 @@ export default defineComponent({
       this.$emit("delete-task", id);
     },
   },
-  emits: ["delete-task", "remind-toggle"],
+  emits: ["delete-task", "remind-toggle", "on-complete"],
   computed: {
-    bellColor: function () {
+    bellColor: function (): string {
       if (this.taskContent?.reminder) {
         return "text-green-500 fas fa-bell";
       }
       return "text-red-500 fas fa-bell";
+    },
+    checkColor: function (): string {
+      if (this.taskContent?.complete) {
+        return "m-2 text-green-500 fas fa-check";
+      }
+      return "m-2 text-red-500 fas fa-check";
     },
   },
 });
