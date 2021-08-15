@@ -3,18 +3,18 @@
     <div class="m-auto text-center">
       <h1 class="font-bold">{{ msg }}</h1>
     </div>
-    <div class="absolute right-10">
+    <div class="absolute top-0 right-0">
       <AddTaskButton title="Add Task" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import AddTaskButton from './Button.vue';
+import { defineComponent } from "vue";
+import AddTaskButton from "./Button.vue";
 
 export default defineComponent({
-  name: 'Header',
+  name: "Header",
   components: { AddTaskButton },
   props: {
     msg: String,
