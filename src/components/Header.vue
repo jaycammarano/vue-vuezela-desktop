@@ -1,21 +1,16 @@
 <template>
-  <div class="relative m-auto">
+  <div class="relative m-auto my-8">
     <div class="m-auto text-center">
-      <h1 class="font-bold">{{ msg }}</h1>
-    </div>
-    <div class="absolute top-0 right-0">
-      <AddTaskButton title="Add Task" />
+      <h1 class="text-2xl font-bold">{{ msg }}</h1>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import AddTaskButton from "./Button.vue";
 
 export default defineComponent({
   name: "Header",
-  components: { AddTaskButton },
   props: {
     msg: String,
   },
