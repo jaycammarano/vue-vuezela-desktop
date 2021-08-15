@@ -1,7 +1,11 @@
 <template>
   <div :key="task.id" v-for="task in tasks" class="w-2/3 m-4">
     <ol>
-      <Task @delete-task="$emit('delete-task', task.id)" :taskContent="task" />
+      <Task
+        @remind-toggle="$emit('remind-toggle', task.id)"
+        @delete-task="$emit('delete-task', task.id)"
+        :taskContent="task"
+      />
     </ol>
   </div>
 </template>

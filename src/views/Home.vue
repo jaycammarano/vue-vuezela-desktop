@@ -16,9 +16,12 @@ export default defineComponent({
   },
   methods: {
     deleteTask(id: number) {
-      if (confirm("Are You Sure?")) {
+      if (confirm("Are you sure you want to delete this task?")) {
         this.tasks = this.tasks.filter((task) => task.id !== id);
       }
+    },
+    onRemind(id: number) {
+      this.tasks = this.tasks.filter((task) => task.id !== id);
     },
   },
   data() {
