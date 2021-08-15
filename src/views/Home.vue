@@ -1,6 +1,13 @@
 <template>
-  <Header @add-task="addTask" msg="Welcome to VueVuezela Task App" />
-  <Button :taskNumber="taskNumber()" />
+  <Header msg="Welcome to VueVuezela Task App" />
+  <div class="p-2 text-lg font-bold">Add Task</div>
+  <div>
+    <AddTask
+      @add-task="addTask"
+      v-bind:showForm="this.showForm"
+      :taskNumber="this.taskNumber()"
+    />
+  </div>
   <h3 class="w-2/3 m-4 text-lg font-bold text-left">Tasks:</h3>
   <TaskListContainer
     @remind-toggle="remindToggle"
@@ -14,15 +21,20 @@ import { defineComponent } from "vue";
 import Header from "@/components/Header.vue"; // @ is an alias to /src
 import TaskListContainer from "../components/TaskListContainer.vue";
 import { TTask } from "../utils/types";
-import Button from "../components/Button.vue";
+import AddTask from "../components/AddTask.vue";
 export default defineComponent({
   name: "Home",
   components: {
     Header,
     TaskListContainer,
-    Button,
+    AddTask,
   },
   methods: {
+    addTask(newTask: TTask): void {
+      console.log(newTask);
+      console.log("hello");
+      this.tasks = [...this.tasks, newTask];
+    },
     taskNumber: function () {
       return this.tasks.length + 1;
     },
@@ -38,9 +50,6 @@ export default defineComponent({
         }
         return task;
       });
-    },
-    addTask(newTask: TTask): void {
-      this.tasks.push(newTask);
     },
   },
   data() {

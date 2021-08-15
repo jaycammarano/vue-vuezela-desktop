@@ -1,6 +1,5 @@
 <template v-show="this.showForm">
-  {{ this.showForm }}
-  <form class="relative w-2/3 p-4 pb-16 m-auto add-form">
+  <form @submit="onSubmit" class="relative w-2/3 p-4 pb-16 m-auto add-form">
     <div class="flex flex-row form-control">
       <div class="p-2">
         <label>Task</label>
@@ -85,6 +84,20 @@ export default defineComponent({
       reminder: false,
     };
   },
+  methods: {
+    onSubmit(e) {
+      e.preventDefault();
+      if (!this.text) {
+        alert("Please add a task");
+      }
+      const newTask = this.taskPreview;
+      this.$emit("add-task", newTask);
+      this.text = "";
+      this.day = "";
+      this.reminder = false;
+    },
+  },
+  emits: ["add-task"],
 
   computed: {
     taskPreview: function () {
