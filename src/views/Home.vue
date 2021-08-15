@@ -28,7 +28,6 @@ export default defineComponent({
       this.tasks = this.tasks.map((task) => {
         if (task.id === id) {
           task.reminder = !task.reminder;
-          console.log(task.reminder);
         }
         return task;
       });

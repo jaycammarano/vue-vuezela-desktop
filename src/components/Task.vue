@@ -19,7 +19,7 @@
     </div>
 
     <div class="absolute right-10">
-      <i @click="remindToggle(taskContent.id)" class="fas fa-bell"></i>
+      <i @click="remindToggle(taskContent.id)" :class="bellColor"></i>
       <i @click="onDelete(taskContent.id)" class="m-2 fas fa-times"></i>
     </div>
   </div>
@@ -42,5 +42,13 @@ export default defineComponent({
     },
   },
   emits: ["delete-task", "remind-toggle"],
+  computed: {
+    bellColor: function () {
+      if (this.taskContent?.reminder) {
+        return "text-green-500 fas fa-bell";
+      }
+      return "text-red-500 fas fa-bell";
+    },
+  },
 });
 </script>
