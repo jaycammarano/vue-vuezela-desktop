@@ -1,18 +1,28 @@
 <template>
   <div class="home">
-    <img class="m-auto" alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to VueVuezela Task App" />
+    <Header msg="Welcome to VueVuezela Task App" />
+    <TaskListContainer />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
+import { defineComponent } from 'vue';
+import Header from '@/components/Header.vue'; // @ is an alias to /src
+import TaskListContainer from '../components/TaskListContainer.vue';
 
 export default defineComponent({
-  name: "Home",
+  name: 'Home',
   components: {
-    HelloWorld,
+    Header,
+    TaskListContainer,
+  },
+  data() {
+    return {
+      tasks: [{ id: 0, text: 'decoratiors', day: 'day', reminder: true }],
+    };
+  },
+  created() {
+    this.tasks = [{ id: 1, text: 'decotrs', day: 'today', reminder: true }];
   },
 });
 </script>
