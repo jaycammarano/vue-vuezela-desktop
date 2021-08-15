@@ -1,15 +1,26 @@
 <template>
   <Header msg="Welcome to VueVuezela Task App" />
-  <div class="p-2 text-lg font-bold">Add Task</div>
-  <div>
-    <AddTask
-      @add-task="addTask"
-      v-bind:showForm="this.showForm"
-      :taskNumber="this.taskNumber()"
-    />
+  <button
+    @click="showHideToggle()"
+    class="
+      absolute
+      left-0
+      p-2
+      mx-4
+      font-bold
+      border-2 border-green-500
+      rounded-md
+      hover:bg-green-500 hover:text-black
+    "
+  >
+    {{ showAddTask ? "Hide Form" : "Add Task" }}
+  </button>
+  <div v-show="this.showAddTask">
+    <AddTask @add-task="addTask" :taskNumber="this.taskNumber()" />
   </div>
-  <h3 class="w-2/3 m-4 text-lg font-bold text-left">Tasks:</h3>
+  <h3 class="w-2/3 m-4 mt-32 text-lg font-bold text-left">Tasks:</h3>
   <TaskListContainer
+    @on-complete="onComplete"
     @remind-toggle="remindToggle"
     @delete-task="deleteTask"
     :tasks="tasks"
@@ -22,6 +33,7 @@ import Header from "@/components/Header.vue"; // @ is an alias to /src
 import TaskListContainer from "../components/TaskListContainer.vue";
 import { TTask } from "../utils/types";
 import AddTask from "../components/AddTask.vue";
+import "../assets/audio/vuvuzela.mp3";
 export default defineComponent({
   name: "Home",
   components: {
@@ -29,11 +41,29 @@ export default defineComponent({
     TaskListContainer,
     AddTask,
   },
+  data() {
+    return {
+      showAddTask: false,
+      tasks: [] as TTask[],
+    };
+  },
   methods: {
     addTask(newTask: TTask): void {
       console.log(newTask);
       console.log("hello");
       this.tasks = [...this.tasks, newTask];
+    },
+    onComplete(id: number): void {
+      this.tasks = this.tasks.map((task) => {
+        if (task.id === id) {
+          task.complete = !task.complete;
+          if (task.complete === true) {
+            var audio = new Audio(require("../assets/audio/vuvuzela.mp3"));
+            audio.play();
+          }
+        }
+        return task;
+      });
     },
     taskNumber: function () {
       return this.tasks.length + 1;
@@ -51,16 +81,21 @@ export default defineComponent({
         return task;
       });
     },
+    showHideToggle(): void {
+      this.showAddTask = !this.showAddTask;
+    },
   },
-  data() {
-    return {
-      tasks: [] as TTask[],
-    };
-  },
+
   created() {
     this.tasks = [
-      { id: 1, text: "decotrs", day: "today", reminder: true },
-      { id: 2, text: "decoratiors", day: "day", reminder: true },
+      { id: 1, text: "decotrs", day: "today", reminder: true, complete: false },
+      {
+        id: 2,
+        text: "decoratiors",
+        day: "day",
+        reminder: true,
+        complete: false,
+      },
     ];
   },
 });

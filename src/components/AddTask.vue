@@ -1,6 +1,6 @@
-<template v-show="this.showForm">
+<template>
   <form @submit="onSubmit" class="relative w-2/3 p-4 pb-16 m-auto add-form">
-    <div class="flex flex-row form-control">
+    <div class="flex flex-rowform-control">
       <div class="p-2">
         <label>Task</label>
       </div>
@@ -52,7 +52,7 @@
         text-left text-white
         bg-transparent
         border-2 border-green-500
-        rounded-sm
+        rounded-md
         hover:bg-green-500 hover:text-black
       "
       type="submit"
@@ -75,7 +75,6 @@ export default defineComponent({
   components: { Task },
   props: {
     taskNumber: Number,
-    showForm: String,
   },
   data() {
     return {
